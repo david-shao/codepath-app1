@@ -14,6 +14,7 @@ import java.util.List;
 public class Movie {
 
     String posterPath;
+    String backdropPath;
     String originalTitle;
     String overview;
 
@@ -21,16 +22,17 @@ public class Movie {
         posterPath = jsonObject.getString("poster_path");
         originalTitle = jsonObject.getString("original_title");
         overview = jsonObject.getString("overview");
+        backdropPath = jsonObject.getString("backdrop_path");
     }
 
     public static List<Movie> fromJSONArray(JSONArray array) {
         List<Movie> results = new ArrayList<>();
-        try {
-            for (int i = 0; i < array.length(); i++) {
+        for (int i = 0; i < array.length(); i++) {
+            try {
                 results.add(new Movie(array.getJSONObject(i)));
+            } catch (JSONException e) {
+                e.printStackTrace();
             }
-        } catch (JSONException e) {
-            e.printStackTrace();
         }
         return results;
     }
@@ -45,5 +47,9 @@ public class Movie {
 
     public String getOverview() {
         return overview;
+    }
+
+    public String getBackdropPath() {
+        return String.format("https://image.tmdb.org/t/p/w342%s", backdropPath);
     }
 }
