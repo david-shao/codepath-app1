@@ -60,11 +60,16 @@ public class MovieArrayAdapter extends ArrayAdapter<Movie> {
         viewHolder.ivImage.setImageResource(0);
         viewHolder.tvTitle.setText(movie.getOriginalTitle());
         viewHolder.tvOverview.setText(movie.getOverview());
+        String imageUrl;
         if (getContext().getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            Picasso.with(getContext()).load(movie.getBackdropPath()).into(viewHolder.ivImage);
+            imageUrl = movie.getBackdropPath();
         } else {
-            Picasso.with(getContext()).load(movie.getPosterPath()).into(viewHolder.ivImage);
+            imageUrl = movie.getPosterPath();
         }
+        Picasso.with(getContext()).load(imageUrl).fit().centerCrop()
+                .placeholder(R.drawable.placeholder)
+                .error(R.drawable.not_available)
+                .into(viewHolder.ivImage);
 
         return convertView;
     }
