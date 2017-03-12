@@ -1,16 +1,15 @@
 package com.david.flickster.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.FragmentManager;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.david.flickster.R;
 import com.david.flickster.adapters.MovieArrayAdapter;
-import com.david.flickster.fragments.MovieDetailsFragment;
 import com.david.flickster.models.Movie;
+import com.google.android.youtube.player.YouTubeBaseActivity;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
@@ -23,7 +22,7 @@ import java.util.List;
 
 import cz.msebera.android.httpclient.Header;
 
-public class MovieActivity extends AppCompatActivity {
+public class MovieActivity extends YouTubeBaseActivity {
 
     List<Movie> movies;
     MovieArrayAdapter movieAdapter;
@@ -44,10 +43,14 @@ public class MovieActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Movie movie = movies.get(position);
 
-                //use fragment to display edit view
-                FragmentManager fm = getSupportFragmentManager();
-                MovieDetailsFragment editItemFragment = MovieDetailsFragment.newInstance(position, movie);
-                editItemFragment.show(fm, "fragment_movie");
+//                FragmentManager fm = getSupportFragmentManager();
+//                MovieDetailsFragment movieDetailsFragment = MovieDetailsFragment.newInstance(position, movie);
+//                movieDetailsFragment.show(fm, "fragment_movie");
+
+                Intent i = new Intent(MovieActivity.this, MovieDetailsActivity.class);
+                i.putExtra("movie", movie);
+                i.putExtra("pos", position);
+                startActivity(i);
             }
         });
 
@@ -72,5 +75,6 @@ public class MovieActivity extends AppCompatActivity {
                 super.onFailure(statusCode, headers, responseString, throwable);
             }
         });
+
     }
 }

@@ -2,7 +2,7 @@
 
 Flickster shows the latest movies currently playing in theaters. The app utilizes the Movie Database API to display images and basic information about these movies to the user.
 
-Time spent: 8 hours spent in total
+Time spent: 14 hours spent in total
 
 ## User Stories
 
@@ -26,7 +26,7 @@ The following **bonus** features are implemented:
 * [ ] Allow video trailers to be played in full-screen using the YouTubePlayerView.
     * [ ] Overlay a play icon for videos that can be played.
     * [ ] More popular movies should start a separate activity that plays the video immediately.
-    * [ ] Less popular videos rely on the detail page should show ratings and a YouTube preview.
+    * [X] Less popular videos rely on the detail page should show ratings and a YouTube preview.
 * [ ] Apply the popular [Butterknife annotation library](http://guides.codepath.com/android/Reducing-View-Boilerplate-with-Butterknife) to reduce boilerplate code.
 * [ ] Apply rounded corners for the poster or background images using [Picasso transformations](https://guides.codepath.com/android/Displaying-Images-with-the-Picasso-Library#other-transformations)
 * [ ] Replaced android-async-http network client with the popular [OkHttp](http://guides.codepath.com/android/Using-OkHttp) networking libraries.
@@ -48,6 +48,8 @@ GIF created with [LiceCap](http://www.cockos.com/licecap/).
 ## Notes
 
 Finding a good sized placeholder image is rather difficult. It was also strangely difficult to figure out how to set the rating bar's rating programmatically. I figured setMax() would allow me to specify a maximum, without having to do the rating conversion (from out of 10 to out of 5 stars), but that's not the case.
+Setting up Genymotion with Google Play was quite a lot of work, it was very easy to get the wrong device/api combination that wouldn't work.
+Getting youtube fragment to work was by far the most challenging task. After hours of researching it seemed impossible to get it to work inside a dialog fragment.
 
 ## Open-source libraries used
 

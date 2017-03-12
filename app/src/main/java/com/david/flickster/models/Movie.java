@@ -1,5 +1,8 @@
 package com.david.flickster.models;
 
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.JsonHttpResponseHandler;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -7,6 +10,8 @@ import org.json.JSONObject;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+
+import cz.msebera.android.httpclient.Header;
 
 /**
  * Created by David on 3/11/2017.
@@ -20,6 +25,8 @@ public class Movie implements Serializable {
     String overview;
     double rating;
     String releaseDate;
+    int movieId;
+    String videoKey;
 
     public Movie(JSONObject jsonObject) throws JSONException {
         posterPath = jsonObject.getString("poster_path");
@@ -28,6 +35,34 @@ public class Movie implements Serializable {
         backdropPath = jsonObject.getString("backdrop_path");
         rating = jsonObject.getDouble("vote_average");
         releaseDate = jsonObject.getString("release_date");
+        movieId = jsonObject.getInt("id");
+
+        String videoUrl = "https://api.themoviedb.org/3/movie/%s/videos?api_key=a07e22bc18f5cb106bfe4cc1f83ad8ed";
+
+        AsyncHttpClient client = new AsyncHttpClient();
+        client.get(String.format(videoUrl, movieId), new JsonHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                JSONArray movieJsonResults = null;
+                try {
+                    movieJsonResults = response.getJSONArray("results");
+                    for (int i = 0; i < movieJsonResults.length(); i++) {
+                        JSONObject video = movieJsonResults.getJSONObject(i);
+                        if (video.getString("type").equals("Trailer")) {
+                            videoKey = video.getString("key");
+                            break;
+                        }
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                super.onFailure(statusCode, headers, responseString, throwable);
+            }
+        });
     }
 
     public static List<Movie> fromJSONArray(JSONArray array) {
@@ -64,5 +99,9 @@ public class Movie implements Serializable {
 
     public String getReleaseDate() {
         return releaseDate;
+    }
+
+    public String getVideoKey() {
+        return videoKey;
     }
 }
