@@ -2,7 +2,6 @@ package com.david.flickster.activities;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
@@ -12,6 +11,9 @@ import com.google.android.youtube.player.YouTubeInitializationResult;
 import com.google.android.youtube.player.YouTubePlayer;
 import com.google.android.youtube.player.YouTubePlayerFragment;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 /**
  * Created by David on 3/12/2017.
  */
@@ -20,11 +22,11 @@ public class MovieDetailsActivity extends AppCompatActivity {
 
     int position;
     Movie movie;
-    ImageView ivImage;
-    TextView tvTitle;
-    TextView tvRelease;
-    TextView tvOverview;
-    RatingBar rbRating;
+//    @BindView(R.id.ivBackdrop) ImageView ivImage;
+    @BindView(R.id.tvTitle) TextView tvTitle;
+    @BindView(R.id.tvReleaseDate) TextView tvRelease;
+    @BindView(R.id.tvOverview) TextView tvOverview;
+    @BindView(R.id.rbRating) RatingBar rbRating;
     YouTubePlayerFragment youtubeFragment;
 
     @Override
@@ -32,15 +34,10 @@ public class MovieDetailsActivity extends AppCompatActivity {
         super.onCreate(bundle);
 
         setContentView(R.layout.activity_movie_details);
+        ButterKnife.bind(this);
 
         movie = (Movie) getIntent().getSerializableExtra("movie");
         position = getIntent().getIntExtra("pos", 0);
-
-//        ivImage = (ImageView) findViewById(R.id.ivBackdrop);
-        tvTitle = (TextView) findViewById(R.id.tvTitle);
-        tvRelease = (TextView) findViewById(R.id.tvReleaseDate);
-        tvOverview = (TextView) findViewById(R.id.tvOverview);
-        rbRating = (RatingBar) findViewById(R.id.rbRating);
 
 //        String imageUrl;
 //        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {

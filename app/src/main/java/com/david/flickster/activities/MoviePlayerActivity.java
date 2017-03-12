@@ -9,22 +9,25 @@ import com.google.android.youtube.player.YouTubeInitializationResult;
 import com.google.android.youtube.player.YouTubePlayer;
 import com.google.android.youtube.player.YouTubePlayerView;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 /**
  * Created by David on 3/12/2017.
  */
 
 public class MoviePlayerActivity extends YouTubeBaseActivity {
     Movie movie;
-    YouTubePlayerView youTubePlayerView;
+
+    @BindView(R.id.player) YouTubePlayerView youTubePlayerView;
 
     @Override
     protected void onCreate(Bundle bundle) {
         super.onCreate(bundle);
         setContentView(R.layout.activity_movie_player);
+        ButterKnife.bind(this);
 
         movie = (Movie) getIntent().getSerializableExtra("movie");
-
-        youTubePlayerView = (YouTubePlayerView) findViewById(R.id.player);
 
         youTubePlayerView.initialize(getResources().getString(R.string.youtube_api_key),
                 new YouTubePlayer.OnInitializedListener() {

@@ -17,8 +17,8 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-import static com.david.flickster.R.id.tvOverview;
-import static com.david.flickster.R.id.tvTitle;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * Created by David on 3/11/2017.
@@ -31,17 +31,25 @@ public class MovieArrayAdapter extends ArrayAdapter<Movie> {
     private final int TYPE_DEFAULT = 0;
 
     // View lookup cache
-    private static class ViewHolderType0 {
-        ImageView ivImage;
-        TextView tvTitle;
-        TextView tvOverview;
+    static class ViewHolderType0 {
+        @BindView(R.id.ivPoster) ImageView ivImage;
+        @BindView(R.id.tvTitle) TextView tvTitle;
+        @BindView(R.id.tvOverview) TextView tvOverview;
+
+        public ViewHolderType0(View view) {
+            ButterKnife.bind(this, view);
+        }
     }
 
-    private static class ViewHolderType1 {
-        ImageView ivImage;
-        ImageView ivPlay;
-        TextView tvTitle;
-        TextView tvOverview;
+    static class ViewHolderType1 {
+        @BindView(R.id.ivBackdrop) ImageView ivImage;
+        @BindView(R.id.ivPlay) ImageView ivPlay;
+        @Nullable @BindView(R.id.tvTitle) TextView tvTitle;
+        @Nullable @BindView(R.id.tvOverview) TextView tvOverview;
+
+        public ViewHolderType1(View view) {
+            ButterKnife.bind(this, view);
+        }
     }
 
     public MovieArrayAdapter(Context context, List<Movie> movies) {
@@ -75,14 +83,9 @@ public class MovieArrayAdapter extends ArrayAdapter<Movie> {
                 ViewHolderType1 viewHolder1;
                 if (convertView == null) {
 //                    Log.d("DEBUG", "creating new viewHolder1");
-                    viewHolder1 = new ViewHolderType1();
                     LayoutInflater inflater = LayoutInflater.from(getContext());
                     convertView = inflater.inflate(R.layout.item_movie_pop, parent, false);
-
-                    viewHolder1.ivImage = (ImageView) convertView.findViewById(R.id.ivBackdrop);
-                    viewHolder1.ivPlay = (ImageView) convertView.findViewById(R.id.ivPlay);
-                    viewHolder1.tvTitle = (TextView) convertView.findViewById(tvTitle);
-                    viewHolder1.tvOverview = (TextView) convertView.findViewById(tvOverview);
+                    viewHolder1 = new ViewHolderType1(convertView);
 
                     convertView.setTag(viewHolder1);
                 } else {
@@ -108,13 +111,9 @@ public class MovieArrayAdapter extends ArrayAdapter<Movie> {
                 ViewHolderType0 viewHolder;
                 if (convertView == null) {
 //                    Log.d("DEBUG", "creating new viewHolder0");
-                    viewHolder = new ViewHolderType0();
                     LayoutInflater inflater = LayoutInflater.from(getContext());
                     convertView = inflater.inflate(R.layout.item_movie, parent, false);
-
-                    viewHolder.ivImage = (ImageView) convertView.findViewById(R.id.ivPoster);
-                    viewHolder.tvTitle = (TextView) convertView.findViewById(tvTitle);
-                    viewHolder.tvOverview = (TextView) convertView.findViewById(tvOverview);
+                    viewHolder = new ViewHolderType0(convertView);
 
                     convertView.setTag(viewHolder);
                 } else {
