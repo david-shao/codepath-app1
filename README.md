@@ -39,13 +39,15 @@ The following **additional** features are implemented:
 
 Here's a walkthrough of implemented user stories:
 
+<img src='cap/optionals1.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+
 <img src='cap/basics.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
 ## Notes
 
-Finding a good sized placeholder image is rather difficult. It was strangely difficult to figure out how to set the rating bar's rating programmatically.
+Finding a good sized placeholder image is rather difficult. It was also strangely difficult to figure out how to set the rating bar's rating programmatically. I figured setMax() would allow me to specify a maximum, without having to do the rating conversion (from out of 10 to out of 5 stars), but that's not the case.
 
 ## Open-source libraries used
 
