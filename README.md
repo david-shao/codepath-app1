@@ -39,6 +39,8 @@ The following **additional** features are implemented:
 
 Here's a walkthrough of implemented user stories:
 
+<img src='cap/optionals2.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+
 <img src='cap/optionals1.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
 <img src='cap/basics.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
