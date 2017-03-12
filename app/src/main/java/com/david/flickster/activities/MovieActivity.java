@@ -1,11 +1,15 @@
 package com.david.flickster.activities;
 
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.david.flickster.R;
 import com.david.flickster.adapters.MovieArrayAdapter;
+import com.david.flickster.fragments.MovieDetailsFragment;
 import com.david.flickster.models.Movie;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -34,6 +38,18 @@ public class MovieActivity extends AppCompatActivity {
         movies = new ArrayList<>();
         movieAdapter = new MovieArrayAdapter(this, movies);
         lvItems.setAdapter(movieAdapter);
+
+        lvItems.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Movie movie = movies.get(position);
+
+                //use fragment to display edit view
+                FragmentManager fm = getSupportFragmentManager();
+                MovieDetailsFragment editItemFragment = MovieDetailsFragment.newInstance(position, movie);
+                editItemFragment.show(fm, "fragment_movie");
+            }
+        });
 
         String url = "https://api.themoviedb.org/3/movie/now_playing?api_key=a07e22bc18f5cb106bfe4cc1f83ad8ed";
 
