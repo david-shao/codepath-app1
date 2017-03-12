@@ -33,7 +33,7 @@ The following **bonus** features are implemented:
 
 The following **additional** features are implemented:
 
-* [ ] List anything else that you can get done to improve the app functionality!
+* [X] When playing a trailer for a movie, a random one is selected each time from the list of available trailers for that movie.
 
 ## Video Walkthrough
 

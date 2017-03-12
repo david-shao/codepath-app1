@@ -74,6 +74,7 @@ public class MovieArrayAdapter extends ArrayAdapter<Movie> {
             case TYPE_POPULAR:
                 ViewHolderType1 viewHolder1;
                 if (convertView == null) {
+//                    Log.d("DEBUG", "creating new viewHolder1");
                     viewHolder1 = new ViewHolderType1();
                     LayoutInflater inflater = LayoutInflater.from(getContext());
                     convertView = inflater.inflate(R.layout.item_movie_pop, parent, false);
@@ -106,6 +107,7 @@ public class MovieArrayAdapter extends ArrayAdapter<Movie> {
             default:
                 ViewHolderType0 viewHolder;
                 if (convertView == null) {
+//                    Log.d("DEBUG", "creating new viewHolder0");
                     viewHolder = new ViewHolderType0();
                     LayoutInflater inflater = LayoutInflater.from(getContext());
                     convertView = inflater.inflate(R.layout.item_movie, parent, false);

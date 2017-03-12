@@ -32,6 +32,7 @@ public class MoviePlayerActivity extends YouTubeBaseActivity {
                     public void onInitializationSuccess(YouTubePlayer.Provider provider, YouTubePlayer youTubePlayer, boolean b) {
                         // do any work here to cue video, play video, etc.
                         if (!b) {
+                            youTubePlayer.setFullscreen(true);
                             youTubePlayer.loadVideo(movie.getVideoKey());
                         }
                     }
