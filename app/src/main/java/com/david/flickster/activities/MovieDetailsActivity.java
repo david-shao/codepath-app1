@@ -25,6 +25,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
     TextView tvRelease;
     TextView tvOverview;
     RatingBar rbRating;
+    YouTubePlayerFragment youtubeFragment;
 
     @Override
     protected void onCreate(Bundle bundle) {
@@ -57,13 +58,15 @@ public class MovieDetailsActivity extends AppCompatActivity {
         tvOverview.setText(movie.getOverview());
         rbRating.setRating((float) movie.getRating() / 10 * 5); //convert rating out of 10 to out of 5 stars
 
-        YouTubePlayerFragment youtubeFragment = (YouTubePlayerFragment) getFragmentManager().findFragmentById(R.id.youtubeFragment);
+        youtubeFragment = (YouTubePlayerFragment) getFragmentManager().findFragmentById(R.id.youtubeFragment);
         youtubeFragment.initialize(getResources().getString(R.string.youtube_api_key),
                 new YouTubePlayer.OnInitializedListener() {
                     @Override
                     public void onInitializationSuccess(YouTubePlayer.Provider provider, YouTubePlayer youTubePlayer, boolean b) {
                         // do any work here to cue video, play video, etc.
-                        youTubePlayer.cueVideo(movie.getVideoKey());
+                        if (!b) {
+                            youTubePlayer.cueVideo(movie.getVideoKey());
+                        }
                     }
                     @Override
                     public void onInitializationFailure(YouTubePlayer.Provider provider, YouTubeInitializationResult youTubeInitializationResult) {

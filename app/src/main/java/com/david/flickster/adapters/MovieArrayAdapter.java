@@ -39,6 +39,9 @@ public class MovieArrayAdapter extends ArrayAdapter<Movie> {
 
     private static class ViewHolderType1 {
         ImageView ivImage;
+        ImageView ivPlay;
+        TextView tvTitle;
+        TextView tvOverview;
     }
 
     public MovieArrayAdapter(Context context, List<Movie> movies) {
@@ -76,6 +79,9 @@ public class MovieArrayAdapter extends ArrayAdapter<Movie> {
                     convertView = inflater.inflate(R.layout.item_movie_pop, parent, false);
 
                     viewHolder1.ivImage = (ImageView) convertView.findViewById(R.id.ivBackdrop);
+                    viewHolder1.ivPlay = (ImageView) convertView.findViewById(R.id.ivPlay);
+                    viewHolder1.tvTitle = (TextView) convertView.findViewById(tvTitle);
+                    viewHolder1.tvOverview = (TextView) convertView.findViewById(tvOverview);
 
                     convertView.setTag(viewHolder1);
                 } else {
@@ -83,6 +89,12 @@ public class MovieArrayAdapter extends ArrayAdapter<Movie> {
                 }
 
                 viewHolder1.ivImage.setImageResource(0);
+                if (viewHolder1.tvTitle != null) {
+                    viewHolder1.tvTitle.setText(movie.getOriginalTitle());
+                }
+                if (viewHolder1.tvOverview != null) {
+                    viewHolder1.tvOverview.setText(movie.getOverview());
+                }
 
                 imageUrl = movie.getBackdropPath();
                 Picasso.with(getContext()).load(imageUrl).fit().centerCrop()

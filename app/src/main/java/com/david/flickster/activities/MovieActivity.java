@@ -2,6 +2,7 @@ package com.david.flickster.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -9,7 +10,6 @@ import android.widget.ListView;
 import com.david.flickster.R;
 import com.david.flickster.adapters.MovieArrayAdapter;
 import com.david.flickster.models.Movie;
-import com.google.android.youtube.player.YouTubeBaseActivity;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
@@ -22,7 +22,7 @@ import java.util.List;
 
 import cz.msebera.android.httpclient.Header;
 
-public class MovieActivity extends YouTubeBaseActivity {
+public class MovieActivity extends AppCompatActivity {
 
     List<Movie> movies;
     MovieArrayAdapter movieAdapter;
@@ -47,10 +47,17 @@ public class MovieActivity extends YouTubeBaseActivity {
 //                MovieDetailsFragment movieDetailsFragment = MovieDetailsFragment.newInstance(position, movie);
 //                movieDetailsFragment.show(fm, "fragment_movie");
 
-                Intent i = new Intent(MovieActivity.this, MovieDetailsActivity.class);
-                i.putExtra("movie", movie);
-                i.putExtra("pos", position);
-                startActivity(i);
+                if (movie.getRating() > 5) {
+                    Intent i = new Intent(MovieActivity.this, MoviePlayerActivity.class);
+                    i.putExtra("movie", movie);
+                    i.putExtra("force_fullscreen", true);
+                    startActivity(i);
+                } else {
+                    Intent i = new Intent(MovieActivity.this, MovieDetailsActivity.class);
+                    i.putExtra("movie", movie);
+                    i.putExtra("pos", position);
+                    startActivity(i);
+                }
             }
         });
 

@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:background="@android:color/black"
+    android:descendantFocusability="blocksDescendants"
     android:layout_width="match_parent" android:layout_height="match_parent">
 
     <ImageView
         android:id="@+id/ivBackdrop"
-        android:layout_width="match_parent"
+        android:layout_width="350dp"
         android:layout_height="200dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
@@ -16,4 +18,44 @@
         android:layout_marginTop="5dp"
         android:layout_marginBottom="5dp"
         tools:src="@drawable/placeholder" />
+
+    <ImageView
+        android:id="@+id/ivPlay"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignLeft="@+id/ivBackdrop"
+        android:layout_alignStart="@+id/ivBackdrop"
+        android:layout_marginLeft="150dp"
+        android:layout_marginStart="150dp"
+        android:layout_marginTop="80dp"
+        app:srcCompat="@drawable/video_play_icon" />
+
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_toEndOf="@+id/ivBackdrop"
+        android:layout_toRightOf="@+id/ivBackdrop"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="5dp"
+        android:textSize="25sp"
+        android:textColor="@android:color/white"
+        tools:text="Fifty Shades Darker" />
+
+    <TextView
+        android:id="@+id/tvOverview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvTitle"
+        android:layout_toEndOf="@+id/ivBackdrop"
+        android:layout_toRightOf="@+id/ivBackdrop"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="5dp"
+        android:textSize="12sp"
+        android:textColor="@android:color/white"
+        tools:text="When a wounded Christian Grey tries to entice a cautious Ana Steele back into his life, she demands a new arrangement before she will give him another chance. As the two begin to build trust and find stability, shadowy figures from Christian’s past start to circle the couple, determined to destroy their hopes for a future together." />
 </RelativeLayout>
