@@ -1,20 +1,22 @@
 package com.david.flickster.models;
 
-import android.util.Log;
-
-import com.loopj.android.http.AsyncHttpClient;
-import com.loopj.android.http.JsonHttpResponseHandler;
+import com.david.flickster.activities.MovieActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import cz.msebera.android.httpclient.Header;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.HttpUrl;
+import okhttp3.Request;
+import okhttp3.Response;
 
 /**
  * Created by David on 3/11/2017.
@@ -45,13 +47,57 @@ public class Movie implements Serializable {
         String videoUrl = "https://api.themoviedb.org/3/movie/%s/videos?api_key=a07e22bc18f5cb106bfe4cc1f83ad8ed";
 
 //        Log.d("DEBUG", "doing async call to get videos for movie " + movieId);
-        AsyncHttpClient client = new AsyncHttpClient();
-        client.get(String.format(videoUrl, movieId), new JsonHttpResponseHandler() {
+//        AsyncHttpClient client = new AsyncHttpClient();
+//        client.get(String.format(videoUrl, movieId), new JsonHttpResponseHandler() {
+//            @Override
+//            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+//                JSONArray movieJsonResults = null;
+//                try {
+//                    movieJsonResults = response.getJSONArray("results");
+//                    for (int i = 0; i < movieJsonResults.length(); i++) {
+//                        JSONObject video = movieJsonResults.getJSONObject(i);
+//                        if (video.getString("type").equals("Trailer")) {
+//                            videoKeys.add(video.getString("key"));
+//                        }
+//                    }
+//                } catch (JSONException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+//                Log.d("DEBUG", "Failed getting videos: " + responseString);
+//            }
+//        });
+
+        String url = "https://api.themoviedb.org/3/movie/%s/videos";
+        url = String.format(url, movieId);
+        HttpUrl.Builder urlBuilder = HttpUrl.parse(url).newBuilder();
+        urlBuilder.addQueryParameter("api_key", "a07e22bc18f5cb106bfe4cc1f83ad8ed");
+        url = urlBuilder.build().toString();
+
+        Request request = new Request.Builder()
+                .url(url)
+                .build();
+
+        MovieActivity.httpClient.newCall(request).enqueue(new Callback() {
             @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (!response.isSuccessful()) {
+                    throw new IOException("Movie response unsuccessful for id: " + movieId + " response: " + response);
+                }
+
                 JSONArray movieJsonResults = null;
                 try {
-                    movieJsonResults = response.getJSONArray("results");
+                    String responseData = response.body().string();
+                    JSONObject json = new JSONObject(responseData);
+                    movieJsonResults = json.getJSONArray("results");
                     for (int i = 0; i < movieJsonResults.length(); i++) {
                         JSONObject video = movieJsonResults.getJSONObject(i);
                         if (video.getString("type").equals("Trailer")) {
@@ -61,11 +107,6 @@ public class Movie implements Serializable {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-            }
-
-            @Override
-            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-                Log.d("DEBUG", "Failed getting videos: " + responseString);
             }
         });
     }
@@ -107,9 +148,11 @@ public class Movie implements Serializable {
     }
 
     public String getVideoKey() {
-        int i = rand.nextInt(videoKeys.size());
-        if (i < videoKeys.size()) {
-            return videoKeys.get(i);
+        if (videoKeys.size() > 0) {
+            int i = rand.nextInt(videoKeys.size());
+            if (i < videoKeys.size()) {
+                return videoKeys.get(i);
+            }
         }
         return "";
     }

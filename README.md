@@ -2,7 +2,7 @@
 
 Flickster shows the latest movies currently playing in theaters. The app utilizes the Movie Database API to display images and basic information about these movies to the user.
 
-Time spent: 16 hours spent in total
+Time spent: 17 hours spent in total
 
 ## User Stories
 
@@ -28,8 +28,8 @@ The following **bonus** features are implemented:
     * [X] More popular movies should start a separate activity that plays the video immediately.
     * [X] Less popular videos rely on the detail page should show ratings and a YouTube preview.
 * [X] Apply the popular [Butterknife annotation library](http://guides.codepath.com/android/Reducing-View-Boilerplate-with-Butterknife) to reduce boilerplate code.
-* [ ] Apply rounded corners for the poster or background images using [Picasso transformations](https://guides.codepath.com/android/Displaying-Images-with-the-Picasso-Library#other-transformations)
-* [ ] Replaced android-async-http network client with the popular [OkHttp](http://guides.codepath.com/android/Using-OkHttp) networking libraries.
+* [X] Apply rounded corners for the poster or background images using [Picasso transformations](https://guides.codepath.com/android/Displaying-Images-with-the-Picasso-Library#other-transformations)
+* [X] Replaced android-async-http network client with the popular [OkHttp](http://guides.codepath.com/android/Using-OkHttp) networking libraries.
 
 The following **additional** features are implemented:
 
