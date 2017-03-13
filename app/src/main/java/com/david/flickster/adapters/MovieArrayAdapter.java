@@ -104,7 +104,7 @@ public class MovieArrayAdapter extends ArrayAdapter<Movie> {
                 imageUrl = movie.getBackdropPath();
                 Picasso.with(getContext()).load(imageUrl).fit().centerCrop()
                         .transform(new RoundedCornersTransformation(15, 15))
-                        .placeholder(R.drawable.placeholder)
+//                        .placeholder(R.drawable.placeholder2)
                         .error(R.drawable.not_available)
                         .into(viewHolder1.ivImage);
                 break;
@@ -133,7 +133,7 @@ public class MovieArrayAdapter extends ArrayAdapter<Movie> {
                 }
                 Picasso.with(getContext()).load(imageUrl).fit().centerCrop()
                         .transform(new RoundedCornersTransformation(15, 15))
-                        .placeholder(R.drawable.placeholder)
+                        .placeholder(R.drawable.placeholder2)
                         .error(R.drawable.not_available)
                         .into(viewHolder.ivImage);
                 break;

@@ -44,7 +44,7 @@ public class Movie implements Serializable {
         movieId = jsonObject.getInt("id");
         videoKeys = new ArrayList<>();
 
-        String videoUrl = "https://api.themoviedb.org/3/movie/%s/videos?api_key=a07e22bc18f5cb106bfe4cc1f83ad8ed";
+//        String videoUrl = "https://api.themoviedb.org/3/movie/%s/videos?api_key=a07e22bc18f5cb106bfe4cc1f83ad8ed";
 
 //        Log.d("DEBUG", "doing async call to get videos for movie " + movieId);
 //        AsyncHttpClient client = new AsyncHttpClient();
